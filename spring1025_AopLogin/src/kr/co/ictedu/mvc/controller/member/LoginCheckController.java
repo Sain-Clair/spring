@@ -51,15 +51,20 @@ public class LoginCheckController {
 	public ModelAndView loginfoutProcess(HttpSession session,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		try {
-			session.removeAttribute("sessionName");
-			session.removeAttribute("sessionID");
-			mav.setViewName("redirect:/main");
-			System.out.println("로그아웃 실행! 및 세션 삭제 => Proceeding Call");
+			if(session.getAttribute("sessionName") != null) {
+				session.removeAttribute("sessionName");
+				session.removeAttribute("sessionID");
+				mav.setViewName("redirect:/main");
+				System.out.println("로그아웃 실행! 및 세션 삭제 => Proceeding Call");
+			}else {
+				mav.setViewName("redirect:/main");
+			}
 			
 		} catch (Exception e) {
-			System.out.println("껄껄껄");
+			e.printStackTrace();
+		}finally {
+			mav.setViewName("redirect:/main");
 		}
-		
 		return mav;
 	}
 	

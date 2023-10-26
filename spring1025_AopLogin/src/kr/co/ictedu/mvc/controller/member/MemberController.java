@@ -80,7 +80,6 @@ public class MemberController {
 		if(session.getAttribute("sessionID") == null) {
 			return("redirect:/main");
 		}
-		
 			List<MyLoginLoggerVO> list = dao.logList(session.getAttribute("sessionID").toString());
 			int max = dao.MaxloginNum(session.getAttribute("sessionID").toString());
 			m.addAttribute("list",list);
@@ -88,10 +87,6 @@ public class MemberController {
 		return "member/mypage";
 		
 	}
-
-
-	
-	
 	
 	
 }

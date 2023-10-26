@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@include file="../temp/header.jsp"%>
+<c:set var="sessionID" value="${sessionScope.sessionID}" />
 <article>
 	<header style="color: white">
 		<h1>My Page</h1>
