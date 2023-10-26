@@ -65,7 +65,7 @@ public class UpBoardDao implements UpBoardDaoInter{
 	// form의 action, method를 확인해서 작성
 	@PostMapping("/bcominsert")
 	public String bcominsert(BoardCommVO cvo, Model model) {
-		UpBoardDaoInter.addComm(cvo);
+		UpBoardDaoInter.addComm(cvo);		
 		return "redirect:upboardDetail?num="+ cvo.getUcode()+"&type=comm#comm";
 	}
 	
@@ -81,7 +81,5 @@ public class UpBoardDao implements UpBoardDaoInter{
 	public int cmtotalCnt(int ucode) {
 		return ss.selectOne("upboard.cmtotalCnt", ucode);
 	}
-	
-	
 	
 }

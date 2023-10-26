@@ -26,14 +26,12 @@ public class LoginCheckController {
 	}
 	// loginProcess : 인증, 세션을 저장
 	@PostMapping("/loginProcess")
-	public ModelAndView loginProcess (
+	public ModelAndView loginfProcess (
 			HttpSession session,
 			HttpServletRequest request,
 			MemberVO vo, @RequestHeader("User-Agent") String userAgent) { //로그인정보를 받아온다?
 	
-		ModelAndView mav = new ModelAndView("redirect:/main");
-		System.out.println("id: " + vo.getId());
-		System.out.println("pwd: " + vo.getPwd());
+		ModelAndView mav = new ModelAndView("redirect:/main");  // 로그인 시 갈 페이지?
 		MemberVO dto = MemberDaoInter.loginCheck(vo);
 		if(dto == null) {
 			mav.setViewName("error/paramException");
@@ -44,17 +42,26 @@ public class LoginCheckController {
 			session.setAttribute("sessionID", dto.getId());
 			System.out.println("로그인 실행! 및 세션 저장 => Proceeding Call");
 		}
+		
 		return mav;
 	}
 	
 	// logout : session을 삭제
 	@GetMapping("/logout")
-	public ModelAndView logoutProcess(HttpServletRequest request, HttpSession session) {
+	public ModelAndView loginfoutProcess(HttpSession session,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		session.removeAttribute("sessionName");
-		session.removeAttribute("sessionID");
-		mav.setViewName("redirect:/main");
-		System.out.println("로그아웃 실행! 및 세션 삭제 => Proceeding Call");
+		try {
+			session.removeAttribute("sessionName");
+			session.removeAttribute("sessionID");
+			mav.setViewName("redirect:/main");
+			System.out.println("로그아웃 실행! 및 세션 삭제 => Proceeding Call");
+			
+		} catch (Exception e) {
+			System.out.println("껄껄껄");
+		}
+		
 		return mav;
 	}
+	
+	
 }

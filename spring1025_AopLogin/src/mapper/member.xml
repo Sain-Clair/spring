@@ -18,4 +18,23 @@
   	select num,id,name,tel,email from members where id=#{id}
   </select>
   
+  <!-- 로그인 로그 삽입 테이블 -->
+  <!-- MyLoginLoggerVO -->
+  <insert id="logger_in" parameterType="lvo">
+  	insert into myloginlog values(myloginlog_seq.nextval,#{idn},#{reip},#{uagent},#{status},sysdate)
+  </insert>
+  
+  
+  <!-- 관리자 로그 확인-->
+  
+  <select id="loglist" parameterType="String" resultType="lvo">
+      select num,idn, reip, uagent, status, logtime from myloginlog
+      <if test="idn != 'admin'">
+         where idn = #{idn}
+      </if>
+      order by num desc
+   </select>
+   <select id="logmax"  parameterType="String" resultType="int">
+  	 select Max(num) from myloginlog where idn = #{idn}
+   </select>
   </mapper>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.ictedu.mvc.dto.MemberVO;
+import kr.co.ictedu.mvc.dto.MyLoginLoggerVO;
 
 @Repository
 public class MemberDao implements MemberDaoInter {
@@ -52,6 +53,21 @@ public class MemberDao implements MemberDaoInter {
 		// FIXME Auto-generated method stub
 		return 0;
 	}
-	
+
+	@Override
+	public void addLoginLogging(MyLoginLoggerVO vo) {
+		ss.insert("mem.logger_in", vo);
+	}
+
+	@Override
+	public List<MyLoginLoggerVO> logList (String idn) {
+		return ss.selectList("mem.loglist", idn);
+	}
+
+	@Override
+	public int MaxloginNum(String idn) {
+
+		return ss.selectOne("mem.logmax",idn);
+	}
 
 }
