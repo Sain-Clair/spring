@@ -21,7 +21,6 @@
 					<c:if test="${sessionScope.sessionID eq 'admin' }">
 						<th>아이디</th>
 					</c:if>
-					<th>아이디</th>
 					<th>접속 아이피</th>
 					<th>접속 환경</th>
 					<th>접속 상태</th>
@@ -75,32 +74,36 @@ $(function (){
 })
 $(function (){
 	$.ajax({
-		url:"${cPath}/mypageRest",
-		success : function(map){
-			let logList = $('#logList');
-			logList.empty(); //  값 입력 전 비우기
-			let list = map.list;
-			let max = map.max;
-			var html='';
-			
-			for(var i = 0; i<list.length; i++){
-				var e = list[i];
-				if(e.num == max){
-					html += '<tr style="background-color: orange;">';
-				}else{
-					html +='<tr>';
-				}
-				html += '<td>' + e.num +'</td>';
-				if('${sessionScope.sessionID}' == 'admin')){
-					html += '<td>' + e.idn + '</td>';
-				}
+		url: "${cPath}/mypageRest",
+		success : function(map) {
+			let logList = $("#logList");
+	        logList.empty(); //값 입력 전 다 비움
+	        let list = map.list;
+	        let max = map.max;
+	        console.log(list);
+	        console.log(max);
+	        var sessionID = "${sessionID}";
+	        var html = '';
+
+	        for (var i = 0; i < list.length; i++) {
+	            var e = list[i];
+
+	            if (e.num == max) {
+	                html += '<tr style="background-color: orange;">';
+	            } else {
+	                html += '<tr>';
+	            }
+	            html += '<td>' + e.num + '</td>';
+	            if (sessionID == 'admin') {
+	                html += '<td>' + e.idn + '</td>';
+	            }
 	            html += '<td>' + e.reip + '</td>';
 	            html += '<td>' + e.uagent + '</td>';
 	            html += '<td>' + e.status + '</td>';
 	            html += '<td>' + e.logtime + '</td>';
 	            html += '</tr>';
-			}
-			logList.append(html);
+	        }
+	        logList.append(html);
 		}
 	})
 })

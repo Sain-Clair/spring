@@ -91,7 +91,7 @@ body {
 			</div>
 			<div class="form-group">
 				<label for="pwd">PWD</label>
-				<input type="text" class="for-control" id= "pwd" name="pwd" value="xman"
+				<input type="password" class="for-control" id= "pwd" name="pwd" value="xman"
 				placeholder="******"   maxlength="10">
 			</div>
 			<div class="form-group" style="text-align: right; margin-top: 10px;">
