@@ -18,6 +18,9 @@
 			<thead>
 				<tr>
 					<th>번호</th>
+					<c:if test="${sessionScope.sessionID eq 'admin' }">
+						<th>아이디</th>
+					</c:if>
 					<th>아이디</th>
 					<th>접속 아이피</th>
 					<th>접속 환경</th>
@@ -88,7 +91,7 @@ $(function (){
 					html +='<tr>';
 				}
 				html += '<td>' + e.num +'</td>';
-				if($('sessionScope.sessionID' == 'admin')){
+				if('${sessionScope.sessionID}' == 'admin')){
 					html += '<td>' + e.idn + '</td>';
 				}
 	            html += '<td>' + e.reip + '</td>';
@@ -97,7 +100,7 @@ $(function (){
 	            html += '<td>' + e.logtime + '</td>';
 	            html += '</tr>';
 			}
-			  logList.append(html);
+			logList.append(html);
 		}
 	})
 })

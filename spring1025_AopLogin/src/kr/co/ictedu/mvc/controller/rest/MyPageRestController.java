@@ -24,14 +24,10 @@ public class MyPageRestController {
 	public Map<String, Object> myPage(HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		String id = (String) session.getAttribute("sessionID");
-
 		List<MyLoginLoggerVO> list = dao.logList(id);
 		int max = dao.MaxloginNum(id);
-
 		map.put("max", max);
 		map.put("list", list);
-
 		return map;
 	}
-
 }
