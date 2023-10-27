@@ -27,7 +27,8 @@
 					<th>접속 날짜</th>
 				</tr>
 			</thead>
-			<tbody id ="logList">
+
+			<tbody id="logList">
 			</tbody>
 		</table>
 		<!-- 로그인 기록 -->
@@ -41,6 +42,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 $(function (){
+	
 	$.ajaxSetup({cache: false});
 	$.ajax({
 		url: "${cPath}/restListJson2",
@@ -71,44 +73,41 @@ $(function (){
 			console.log("깔깔");
 		}
 	})
-})
-$(function (){
-	$.ajax({
-		url: "${cPath}/mypageRest",
-		success : function(map) {
-			let logList = $("#logList");
-	        logList.empty(); //값 입력 전 다 비움
-	        let list = map.list;
-	        let max = map.max;
-	        console.log(list);
-	        console.log(max);
-	        var sessionID = "${sessionID}";
-	        var html = '';
+		setInterval(function() {
+		$.ajax({
+			url : "${cPath}/mypageRest",
+			success : function(map) {
+				let logList = $("#logList");
+				logList.empty(); //값 입력 전 다 비움
+				let list = map.list;
+				let max = map.max;
+				console.log(list);
+				console.log(max);
+				var sessionID = "${sessionID}";
+				var html = '';
 
-	        for (var i = 0; i < list.length; i++) {
-	            var e = list[i];
+				for (var i = 0; i < list.length; i++) {
+					var e = list[i];
 
-	            if (e.num == max) {
-	                html += '<tr style="background-color: orange;">';
-	            } else {
-	                html += '<tr>';
-	            }
-	            html += '<td>' + e.num + '</td>';
-	            if (sessionID == 'admin') {
-	                html += '<td>' + e.idn + '</td>';
-	            }
-	            html += '<td>' + e.reip + '</td>';
-	            html += '<td>' + e.uagent + '</td>';
-	            html += '<td>' + e.status + '</td>';
-	            html += '<td>' + e.logtime + '</td>';
-	            html += '</tr>';
-	        }
-	        logList.append(html);
-		}
+					if (e.num == max) {
+						html += '<tr style="background-color: orange;">';
+					} else {
+						html += '<tr>';
+					}
+					html += '<td>' + e.num + '</td>';
+					if (sessionID == 'admin') {
+						html += '<td>' + e.idn + '</td>';
+					}
+					html += '<td>' + e.reip + '</td>';
+					html += '<td>' + e.uagent + '</td>';
+					html += '<td>' + e.status + '</td>';
+					html += '<td>' + e.logtime + '</td>';
+					html += '</tr>';
+				}
+				logList.append(html);
+			}
+		}, 1000);
 	})
 })
-
-
 </script>
-
 

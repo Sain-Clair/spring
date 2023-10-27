@@ -251,7 +251,7 @@ $(function(){
 <header class="text-white text-center" >
 		<div class="d-flex flex-row-reverse mybgColor">
 			<div class="p-2 bg-info">
-				<a href="#" class="nav-link text-white" id="item1">Flex item 1</a>
+				<a href="${cPath}/chatdemo/chat" class="nav-link text-white" id="item1">Chatdemo</a>
 			</div>
 			<%-- 로그인 전 --%>
 			<c:choose>
