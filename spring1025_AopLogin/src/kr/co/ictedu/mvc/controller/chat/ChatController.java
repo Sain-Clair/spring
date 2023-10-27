@@ -17,7 +17,7 @@ public class ChatController {
 			mav.addObject("emsg", "로그인 실패입니다.");
 		}else {
 			String img = "";
-			if(session.getAttribute("sessionID").equals("bigdaddy")) {
+			if(session.getAttribute("sessionID").equals("xman")) {
 				img = "mio.png";
 			}else {
 				img="dog1.png";
