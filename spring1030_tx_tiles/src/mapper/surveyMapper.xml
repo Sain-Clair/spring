@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="survey" >
+	<insert id="add" parameterType="survo">
+		insert into survey values(survey_seq.nextval,#{sub},#{code},sysdate)
+	</insert>
+	<!--
+	1. parameterType = "java.util.List"
+		dao.insert("addcontent", list)
+	2. survey_seq.currVal 의 값을 처리하는 방법!
+		selectKey 문법 인지
+	3. 
+	foreach 문법
+	insert all -> open="insert all"  
+		into surveycontent values('A',2,'온다',0) 
+		into surveycontent values('B',2,'안온다',0) 
+		into surveycontent values('C',2,'모른다',0) 
+	select * from dual; => close ="select * from dual" 
+	
+	for(VO e:arr){
+	}
+	-->
+	<insert id="addcontent" parameterType="java.util.List">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select survey_seq.currVal from dual
+		</selectKey>
+		<foreach collection="list" item="e" separator=" " open="insert all" close="select * from dual">
+			into surveycontent values(#{e.subtype},#{id},#{e.surveytitle},0)      
+		</foreach>
+	</insert>
+	<!-- id:pk -->
+	<!-- pk: not null, index, unique -->
+	<!-- 인덱싱 때문에 id 사용 -->
+	<!-- 1:N 관계
+		private List<SurveyContentVO> subvey;
+		// 1:1 관계
+		// 사원 |=========| 사원폰
+		SawonVO			SawonPhone
+		priavte SawonPhone sp;
+	<assosication property =""></association>
+		
+	 -->
+	 
+	 
+	 
+<!-- 	<resultMap type="survo" id="surveyList"> -->
+<!-- 		<id property="num" column="num" javaType="int"/> -->
+<!-- 		<result property="sub" column="sub" /> -->
+<!-- 		<result property="code" column="code" /> -->
+<!-- 		<result property="sdate" column="sdate" /> -->
+<!-- 		<result property="surveytotal" column="surveytotal" /> -->
+<!-- 	</resultMap> -->
+	<select id="listSurvey" resultType="survo">
+		select s.num , s.sub ,s.code , sum(c.surveycnt) surveytotal, s.sdate 
+		from survey s, surveycontent c
+		where s.num = c.subcode
+		group by s.num, s.sub, s.code, s.sdate
+		order by 1 desc
+	</select>
+	<resultMap type="survo" id="surview">
+		<id property="num" column="num" javaType="int"/>
+		<result property="sub" column="sub"/>
+		<result property="sdate" column="sdate"/>
+		<collection property="subvey" javaType="java.util.List" ofType="subvo">
+			<result property="subcode" column="subcode" javaType="int"/>
+			<result property="subtype" column="subtype"/>
+			<result property="surveytitle" column="surveytitle"/>
+			<result property="surveycnt" column="surveycnt" javaType="int"/>
+		</collection>
+	</resultMap>
+	<select id="adminDetail" parameterType="int" resultMap="surview">
+		select s.num , s.sub ,s.code , s.sdate, 
+		sc.subtype, sc.subcode, sc.surveytitle, sc.surveycnt
+		from survey s, surveycontent sc
+		where s.num = sc.subcode and s.num=#{num}
+	</select>
+	
+	
+  </mapper>
+  
