@@ -96,6 +96,7 @@ public class ChatHandler {
 		}
 	}
 	
+	
 	private void saveFile(String id, String message) {
 		// 메세지 내용. 모든 사용자에게 같이 뿌려야 함 -->MyServerSocket
 		String sendMessage = id + ":" + message + "\n";
