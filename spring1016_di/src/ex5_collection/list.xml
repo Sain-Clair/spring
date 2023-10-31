@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="list" class="ex5_collection.Ex1_ListDemo">
+	<!-- stlist.add("문자열"); -->
+		<property name="stlist">
+		<list>
+			<value>ICT 34기</value>
+			<value>ICT 34기 스프링 학습입니다.</value>
+			<value>ICT 34기 이제 피이썬이 기다리네요</value>
+		</list>
+		</property>
+	</bean>
+
+</beans>

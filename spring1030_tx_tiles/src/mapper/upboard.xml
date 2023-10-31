@@ -93,10 +93,6 @@
 			</where>
 		</if>
 	</select>
-	
-	
-
-
 	<update id="update" parameterType="upvo">
 		update upboard set title
 		=#{title},content=#{content},imgn=#{imgn},bdate=sysdate where num =

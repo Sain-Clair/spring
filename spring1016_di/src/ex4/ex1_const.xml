@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 스프링의 Bean은 value는 모두 String이 우선순위를 가진다. -->
+	<bean id="ex1" class="ex4.Ex1_Const">
+		<constructor-arg type="int">
+			<value >
+				8000
+			</value>
+		</constructor-arg>
+	</bean>
+	<bean id="ex2" class="ex4.Ex1_Const">
+		<constructor-arg value="1000" />
+		<constructor-arg value="테스형" />
+	</bean>
+	<bean id="ex3" class="ex4.Ex1_Const">
+		<constructor-arg value="1000" />
+		<constructor-arg value="테스형" />
+		<constructor-arg value="문자임"/>
+	</bean>
+</beans>

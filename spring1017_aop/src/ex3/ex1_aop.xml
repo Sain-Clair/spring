@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+<context:annotation-config />
+	<!-- Advice id > name > quil~ -->
+<bean id="checkAdvice" class="ex3.advice.CheckAdvice" />
+<bean id="afterAdvice" class="ex3.advice.NameReturnAdvice"/>
+<bean id ="afterthrowAdvice" class="ex3.advice.AfterThrowAdvice"/>
+<bean id ="beforeAdvice" class="ex3.advice.TodayBeforeAdvice"/>
+<!-- Autowired -->
+<bean id ="todayMethod" class="ex3.MyPublic" />
+<!-- AOP Bean -->
+<aop:config>
+	<aop:aspect id="time" ref="checkAdvice">
+		<aop:pointcut expression="execution(* ex3.DaoImple.first*(..))" id="firstP"/>
+		<aop:around method="checkTime" pointcut-ref="firstP"/>
+	</aop:aspect>
+	<!-- returniong="ret" : 속성과 인자로 선언한 변수 명이 동일 해야 함! -->
+	<aop:aspect id="afterAdvice" ref="afterAdvice">
+		<aop:pointcut expression="execution(* ex3.DaoImple.second*(..))" id="second"/>
+		<aop:after-returning method="myReturnMethod" pointcut-ref="second" returning="ret"/>
+	</aop:aspect>
+	<!-- afterThrow -->
+	<aop:aspect id="afterthrowAdvice" ref="afterthrowAdvice">
+		<aop:pointcut expression="execution(* ex3.DaoImple.third*(..))" id="third"/>
+		<aop:after-throwing method="commThrow" pointcut-ref="third"  throwing="ew"/>
+	</aop:aspect>
+	<!-- throw ="ew"  -->
+	<aop:aspect id="afterthrowAdvice" ref="afterthrowAdvice">
+		<aop:pointcut expression="execution(* ex3.DaoImple.third*(..))" id="third"/>
+		<aop:after-throwing method="commThrow" pointcut-ref="third"  throwing="ew"/>
+	</aop:aspect>
+	<!-- TodayBeforeAdvice -->
+	<aop:aspect id="beforeAdvice" ref="beforeAdvice">
+		<aop:pointcut expression="execution(* ex3.DaoImple.*(..))" id="before"/>
+		<aop:before method="TodayDate" pointcut-ref="before"/>
+	</aop:aspect>
+</aop:config>
+<context:annotation-config>
+	
+</context:annotation-config> 
+<!-- Target -->
+<bean id="dao" class="ex3.DaoImple"/>
+</beans>

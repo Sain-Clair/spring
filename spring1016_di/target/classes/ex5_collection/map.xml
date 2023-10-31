@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- abstract="true" 부모로서만 사용이 가능하고 직접 getBean()할 수 없다. 추상 클래스와 같은 개념 -->
+	<bean id="map" class="ex5_collection.Ex2_Map" abstract="true">
+		<property name="map">
+			<map>
+				<entry key="email" value="ee@3eee.com"></entry>
+				<!-- map의 key값은 set이라 중복허용 x -->
+				<entry key ="name" value="홍길동1"></entry>
+				<entry key="name" value="홍길동2"></entry>
+			</map>
+		</property>
+	</bean>
+
+</beans>
